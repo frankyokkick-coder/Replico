@@ -11,7 +11,6 @@ const SOUND_IDS = [
   // Real animal recordings (see public/audio/sound-library.js + samples/CREDITS.md)
   'chicken_1', 'chicken_2', 'chicken_3', 'chicken_4', 'chicken_5',
   'rooster_1',
-  'pig_1', 'pig_2', 'pig_3',
   'horse_1', 'horse_2', 'horse_3',
   'dog_1', 'dog_2',
   'dog_small_1', 'dog_small_2',

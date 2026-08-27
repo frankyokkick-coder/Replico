@@ -57,18 +57,21 @@ replico/
 
 ## Where things live
 
-- **Sounds**: `public/audio/sound-library.js` - 61 sounds total.
+- **Sounds**: `public/audio/sound-library.js` - 58 sounds total.
   - Non-animal sound effects (siren, robot beep, kazoo, car horn, ...) are
     still synthesized with the Web Audio API at runtime - no files, no
     copyright concerns.
   - Animal sounds are real recordings (not synthesized) in
     `public/audio/samples/*.mp3`, loaded via `fetch` + `decodeAudioData`.
-    46 real animal clips cover chicken, rooster, pig, horse, dog (regular/
+    43 real animal clips cover chicken, rooster, horse, dog (regular/
     small/big/howl), cat, cow, sheep, goat, duck, turkey, monkey, donkey,
     frog, bird, owl, goose, plus bonus lion/chimp/elephant/bear/wolf clips -
     each sourced from Wikimedia Commons or Internet Archive under CC0/CC-BY/
     Public Domain licenses. See `public/audio/samples/CREDITS.md` for the
-    exact source, author, and license of every file.
+    exact source, author, and license of every file. (There is no pig
+    sound: the previous pig samples turned out to be a person imitating a
+    pig rather than a real recording, so they were removed rather than
+    left mislabeled.)
   - To add an animal sound: drop an mp3 into `public/audio/samples/`, add a
     `sampleEntry('id', 'Display Name', 'file.mp3')` line to
     `ANIMAL_SOUND_ENTRIES` in `sound-library.js`, add the same `id` string to

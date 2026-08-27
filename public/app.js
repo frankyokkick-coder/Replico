@@ -69,6 +69,13 @@ async function onStartClicked() {
   startBtn.disabled = true;
   startError.textContent = '';
 
+  // fetch+decode the recording-pose photo now (in parallel with the mic
+  // permission flow below), so it's fully ready before round 1 ever needs
+  // it - otherwise the character div resizes for the new pose instantly
+  // while the still-loading image keeps showing the old pose stretched
+  // into it, which looks like the character changing size for a frame.
+  const recordPosePreload = preloadRecordPose();
+
   try {
     if (!state.audioContext) {
       state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -82,6 +89,8 @@ async function onStartClicked() {
     if (!state.soundDeck) {
       state.soundDeck = window.REPLICO_SOUNDS.createSoundDeck();
     }
+
+    await recordPosePreload;
   } catch (err) {
     console.error(err);
     startError.textContent = 'Could not access microphone. Please allow mic access and try again.';
@@ -90,6 +99,12 @@ async function onStartClicked() {
   }
 
   startMatch();
+}
+
+function preloadRecordPose() {
+  const img = new Image();
+  img.src = CHAR_PHOTO_RECORD_SRC;
+  return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
 }
 
 // ---------- match / round loop ----------

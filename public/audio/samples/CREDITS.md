@@ -33,9 +33,6 @@ Item pages: `https://archive.org/details/<identifier>`
 | owl_al_1.mp3 | Red_Library_Animals_Birds | R01-27-Great Horned Owl Hoot |
 | bird_al_1.mp3 | Red_Library_Animals_Birds | R01-10-Birds Chirping Quickly |
 | bird_al_2.mp3 | Red_Library_Animals_Birds | R30-35-Small Bird Singing |
-| pig_al_1.mp3 | Red_Library_Animals_Farm | R01-40-Pigs Snorting and Squealing |
-| pig_al_2.mp3 | Red_Library_Animals_Farm | R01-56-Pig Snorts and Squeals |
-| pig_al_3.mp3 | Red_Library_Animals_Farm | R01-70-Adult Pigs Grunting |
 | sheep_al_1.mp3 | Red_Library_Animals_Farm | R01-05-Sheep Bleating |
 | sheep_al_2.mp3 | Red_Library_Animals_Farm | R01-08-Sheep Bleating |
 | goat_al_1.mp3 | Red_Library_Animals_Farm | R01-36-Goats Bleating |
