@@ -7,6 +7,12 @@
 (function () {
   'use strict';
 
+  // Guard against this script ever running twice on the same page (e.g. a
+  // stray duplicate <script> tag) - there must only ever be one Audio
+  // instance/one track playing.
+  if (window.__REPLICO_BG_MUSIC_INIT__) return;
+  window.__REPLICO_BG_MUSIC_INIT__ = true;
+
   // Music plays only on these "not currently playing a round" screens.
   const MUSIC_SCREENS = new Set(['screen-start', 'screen-mp-lobby', 'screen-mp-room']);
   const DEFAULT_VOLUME = 0.15; // quiet background bed - never competes with game audio
@@ -52,16 +58,25 @@
     }
   }
 
-  // The game already requires a click (START/MULTIPLAYER) before anything
-  // happens, so the first click anywhere doubles as the autoplay-unlock
-  // gesture browsers require for audio with sound.
-  function unlock() {
+  function markUnlocked() {
     if (unlocked) return;
     unlocked = true;
     sync();
-    document.removeEventListener('click', unlock);
+    document.removeEventListener('click', markUnlocked);
+    document.removeEventListener('touchstart', markUnlocked);
   }
-  document.addEventListener('click', unlock);
+
+  // Try to start the instant the page opens - some browsers/contexts allow
+  // this. It will usually be silently blocked, which is exactly what the
+  // click/tap listeners below are for.
+  markUnlocked();
+
+  // Whatever the very first click or tap anywhere on the page is - the
+  // START/MULTIPLAYER buttons included - counts as the gesture browsers
+  // require before audio with sound can play, so music starts immediately
+  // on it rather than waiting for a specific button.
+  document.addEventListener('click', markUnlocked);
+  document.addEventListener('touchstart', markUnlocked);
 
   const observer = new MutationObserver(sync);
   document.querySelectorAll('.screen').forEach((el) => {
