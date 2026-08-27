@@ -131,6 +131,17 @@ function attachMultiplayer(httpServer, config) {
           });
 
           setTimeout(() => applyAdvance(room), RESULT_DISPLAY_MS);
+        } else if (msg.type === 'voice-signal') {
+          // WebRTC signaling relay for live voice chat - this server never
+          // looks at the SDP/ICE payload, it just forwards it to the named
+          // peer, and only if both are in the same room.
+          const room = roomManager.getRoom(ws.roomCode);
+          if (!room) return;
+          const targetInRoom = room.players.some((p) => p.id === msg.targetPlayerId);
+          const targetWs = clients.get(msg.targetPlayerId);
+          if (targetInRoom && targetWs) {
+            send(targetWs, { type: 'voice-signal', fromPlayerId: playerId, signal: msg.signal });
+          }
         }
       } catch (err) {
         send(ws, { type: 'error', message: err.message });

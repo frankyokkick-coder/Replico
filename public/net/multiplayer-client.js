@@ -82,6 +82,11 @@ function createMultiplayerClient() {
     sendAttemptResult,
     base64ToBlob,
     getPlayerId: () => playerId,
+    // Exposes the raw socket so an independent module (voice-chat.js) can
+    // add its own addEventListener('message', ...) listener for its own
+    // message types, without touching the single-handler `on()` dispatch
+    // above that app.js/multiplayer.js already rely on.
+    getSocket: () => ws,
   };
 }
 

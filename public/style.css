@@ -77,6 +77,11 @@ body {
   transform: scale(0.95);
 }
 
+.btn-back.muted {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* ---------- THE GARAGE STAGE ---------- */
 
 .stage {

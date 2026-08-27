@@ -86,6 +86,11 @@ replico/
 - **Multiplayer settings**: `server/config.js` (server: port, WS path) and
   `public/config.js` (client: WebSocket URL). See below for changing these
   for production.
+- **Live voice chat**: `public/net/voice-chat.js` (client, WebRTC mesh) +
+  the `voice-signal` relay branch in `server/wsServer.js` (the server never
+  looks at the audio, just forwards signaling messages between the two
+  players in a room). Multiplayer only - it starts the moment a room is
+  joined/created and never runs in single-player.
 
 ## Multiplayer, in short
 
@@ -198,3 +203,8 @@ code is already organized to make that a re-skin, not a rewrite:
 - No reconnect/resume support if a player's connection drops mid-match.
 - Only one character design exists; multiplayer distinguishes players with
   a color tint + name tag rather than unique art.
+- Voice chat uses public STUN (Google) and a free public TURN fallback
+  (Open Relay Project) for NAT traversal - works for the vast majority of
+  home networks, but a small number of very restrictive/corporate networks
+  could still fail to establish a direct peer connection without a
+  dedicated paid TURN server.
