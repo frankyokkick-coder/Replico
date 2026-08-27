@@ -1,0 +1,13 @@
+{
+  "name": "replico",
+  "version": "0.1.0",
+  "private": true,
+  "description": "REPLICO - Hear it. Replicate it. Party game prototype.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.21.3"
+  }
+}

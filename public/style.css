@@ -1,0 +1,440 @@
+:root {
+  --bg: #100e1c;
+  --panel: #1c1830;
+  --accent: #ff6ee0;
+  --accent-2: #4fd6e8;
+  --good: #4ade80;
+  --text: #f4f2ff;
+  --text-dim: #9c98b5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 20%, #241f3d, var(--bg));
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.game {
+  width: 100%;
+  max-width: 720px;
+  padding: 24px;
+  text-align: center;
+}
+
+.brand {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 4px;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+/* ---------- THE GARAGE STAGE ---------- */
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 800 / 450;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #2a2740;
+  margin-bottom: 18px;
+}
+
+.garage-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.character {
+  position: absolute;
+  bottom: 4%;
+  left: 10%;
+  width: 15%;
+  transition: left 1.1s ease-in-out;
+  z-index: 2;
+}
+
+.character.at-mic { left: 33%; }
+.character.facing-left .char-svg { transform: scaleX(-1); }
+
+/* Multiplayer: extra character clones sit in fixed waiting slots until
+   it's their turn, at which point .at-mic (more specific) overrides them. */
+.mp-characters { position: absolute; inset: 0; z-index: 2; }
+.mp-characters .character { position: absolute; }
+.mp-slot-0 { left: 2%; }
+.mp-slot-1 { left: 14%; }
+.mp-slot-2 { left: 26%; }
+.mp-slot-3 { left: 70%; }
+.mp-slot-4 { left: 82%; }
+.mp-slot-5 { left: 92%; }
+
+.mp-name-tag {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim);
+  white-space: nowrap;
+  background: rgba(16, 14, 28, 0.7);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.char-svg { width: 100%; display: block; overflow: visible; }
+
+.char-svg .face { display: none; }
+.character.expr-neutral .face-neutral,
+.character.expr-happy .face-happy,
+.character.expr-shock .face-shock,
+.character.expr-derp .face-derp {
+  display: block;
+}
+
+.leg { transform-box: fill-box; transform-origin: 50% 0%; }
+
+.character.walking .leg-left { animation: leg-swing 0.42s ease-in-out infinite; }
+.character.walking .leg-right { animation: leg-swing 0.42s ease-in-out infinite; animation-delay: 0.21s; }
+
+@keyframes leg-swing {
+  0%, 100% { transform: rotate(16deg); }
+  50% { transform: rotate(-16deg); }
+}
+
+.character.walking .char-body,
+.character.walking .char-head {
+  animation: char-bob 0.42s ease-in-out infinite;
+}
+
+@keyframes char-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ---------- SCREENS / HUD PANELS ---------- */
+
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 0;
+}
+
+.screen.active { display: flex; }
+
+.tagline {
+  color: var(--text-dim);
+  font-size: 18px;
+  margin: 0 0 12px 0;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 16px 48px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.15s ease;
+}
+
+.btn:active { transform: scale(0.96); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #1a1a1a;
+}
+
+.btn-secondary {
+  background: var(--panel);
+  color: var(--text);
+  border: 2px solid var(--accent-2);
+}
+
+.error-text {
+  color: var(--accent);
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.round-banner {
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--accent-2);
+}
+
+.big-label {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.sound-name {
+  margin: -10px 0 0 0;
+  color: var(--text-dim);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.replicate-label { color: var(--accent); }
+.reaction-label { color: var(--text-dim); font-size: 40px; }
+
+.pulse-icon {
+  font-size: 56px;
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.7; }
+}
+
+.countdown-number {
+  font-size: 100px;
+  font-weight: 900;
+  color: var(--accent-2);
+}
+
+.rec-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+
+.rec-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 0.9s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.timer-bar-track {
+  width: 100%;
+  max-width: 360px;
+  height: 10px;
+  background: var(--panel);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.timer-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform-origin: left;
+}
+
+.overall-score-label {
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.overall-score-value {
+  font-size: 88px;
+  font-weight: 900;
+  margin: 0;
+  color: var(--good);
+  line-height: 1;
+}
+
+.score-grid {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 40px;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-name {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.score-bar-track {
+  height: 12px;
+  background: var(--panel);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.6s ease;
+}
+
+.score-value {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.results-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Multiplayer turns reuse #screen-results but hide these single-player-only
+   buttons - the server advances turns automatically. */
+body.mp-active .results-actions { display: none; }
+
+.turn-player-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--accent-2);
+}
+
+.text-input {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--panel);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+}
+
+.text-input:focus { border-color: var(--accent-2); }
+
+.code-input {
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  width: 140px;
+}
+
+.mp-lobby-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-code {
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: var(--accent-2);
+  margin: 0;
+}
+
+.mp-player-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.mp-player-list li {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 10px 18px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.mp-player-list li .tag {
+  color: var(--accent-2);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.mp-leaderboard {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.mp-leaderboard li {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  border: 2px solid transparent;
+}
+
+.mp-leaderboard li.rank-1 { border-color: var(--good); }
+
+.mp-leaderboard .rank-label {
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-right: 10px;
+}
+
+.winner-banner {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--good);
+  margin: -6px 0 4px 0;
+}

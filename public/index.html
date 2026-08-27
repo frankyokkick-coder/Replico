@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REPLICO</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="game">
+
+  <header class="brand">REPLICO</header>
+
+  <div class="hud">
+    <span id="round-indicator" class="round-indicator">ROUND 1/5</span>
+    <span id="turn-player-label" class="turn-player-label"></span>
+    <span id="running-score" class="running-score">TOTAL: 0</span>
+  </div>
+
+  <!-- THE GARAGE: original illustrated scene + character, stays visible
+       through the whole gameplay loop. -->
+  <div id="stage" class="stage">
+    <svg class="garage-bg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="neonGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="4.5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- wall -->
+      <rect x="0" y="0" width="800" height="320" fill="#161225"/>
+      <rect x="0" y="0" width="800" height="320" fill="#1c1730" opacity="0.5"/>
+      <!-- floor -->
+      <rect x="0" y="320" width="800" height="130" fill="#221e30"/>
+      <line x1="0" y1="356" x2="800" y2="356" stroke="#191627" stroke-width="4"/>
+      <line x1="0" y1="400" x2="800" y2="400" stroke="#191627" stroke-width="4"/>
+
+      <!-- graffiti mural blobs behind everything -->
+      <g opacity="0.5">
+        <path d="M470 90 Q520 60 560 95 Q600 120 555 150 Q500 165 480 130 Z" fill="#7c3aed"/>
+        <path d="M300 100 Q340 80 365 110 Q380 135 345 145 Q310 150 300 120 Z" fill="#14b8a6"/>
+      </g>
+
+      <!-- neon REPLICO sign -->
+      <text x="400" y="70" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="46" letter-spacing="3" fill="#ff6ee0" filter="url(#neonGlow)">REPLICO</text>
+
+      <!-- neon tube accents -->
+      <line x1="55" y1="45" x2="150" y2="90" stroke="#ff6ee0" stroke-width="7" stroke-linecap="round" filter="url(#neonGlow)"/>
+      <line x1="745" y1="45" x2="650" y2="90" stroke="#4fd6e8" stroke-width="7" stroke-linecap="round" filter="url(#neonGlow)"/>
+
+      <!-- rolling metal garage door -->
+      <g>
+        <rect x="295" y="150" width="220" height="170" rx="4" fill="#2a2740" stroke="#100e1c" stroke-width="6"/>
+        <line x1="295" y1="168" x2="515" y2="168" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="186" x2="515" y2="186" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="204" x2="515" y2="204" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="222" x2="515" y2="222" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="240" x2="515" y2="240" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="258" x2="515" y2="258" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="276" x2="515" y2="276" stroke="#100e1c" stroke-width="3"/>
+        <line x1="295" y1="294" x2="515" y2="294" stroke="#100e1c" stroke-width="3"/>
+        <rect x="400" y="150" width="10" height="170" fill="#1d1a2e"/>
+      </g>
+
+      <!-- posters / stickers -->
+      <g transform="rotate(-6 175 120)">
+        <rect x="140" y="85" width="66" height="86" rx="6" fill="#14b8a6" stroke="#100e1c" stroke-width="4"/>
+        <path d="M173 100 L182 122 L205 122 L187 136 L194 158 L173 144 L152 158 L159 136 L141 122 L164 122 Z" fill="#ffd166"/>
+      </g>
+      <circle cx="608" cy="118" r="30" fill="#191626" stroke="#4fd6e8" stroke-width="3" filter="url(#neonGlow)"/>
+      <path d="M596 106 L603 113 M603 106 L596 113" stroke="#4fd6e8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M613 106 L620 113 M620 106 L613 113" stroke="#4fd6e8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M594 126 Q608 138 622 126" fill="none" stroke="#4fd6e8" stroke-width="3" stroke-linecap="round"/>
+      <g transform="rotate(5 570 200)">
+        <rect x="540" y="168" width="56" height="66" rx="8" fill="#7c3aed" stroke="#100e1c" stroke-width="4"/>
+        <circle cx="568" cy="192" r="4" fill="#ffd166"/>
+        <circle cx="568" cy="208" r="4" fill="#ffd166"/>
+        <circle cx="556" cy="200" r="4" fill="#ffd166"/>
+        <circle cx="580" cy="200" r="4" fill="#ffd166"/>
+      </g>
+
+      <!-- shelving unit: crates, basketball, trophy -->
+      <g>
+        <rect x="24" y="150" width="110" height="160" fill="none" stroke="#3a3555" stroke-width="5"/>
+        <line x1="24" y1="205" x2="134" y2="205" stroke="#3a3555" stroke-width="5"/>
+        <line x1="24" y1="258" x2="134" y2="258" stroke="#3a3555" stroke-width="5"/>
+        <rect x="32" y="160" width="36" height="36" rx="4" fill="#4a4470" stroke="#100e1c" stroke-width="3"/>
+        <rect x="76" y="164" width="30" height="30" rx="4" fill="#3a355a" stroke="#100e1c" stroke-width="3"/>
+        <circle cx="50" cy="235" r="18" fill="#e8823a" stroke="#100e1c" stroke-width="3"/>
+        <path d="M50 217 L50 253 M32 235 L68 235" stroke="#100e1c" stroke-width="2"/>
+        <path d="M92 288 L92 268 Q92 260 100 260 Q108 260 108 268 L108 288 Z" fill="#ffd166" stroke="#100e1c" stroke-width="3"/>
+        <rect x="30" y="270" width="34" height="30" rx="3" fill="#2a2740" stroke="#100e1c" stroke-width="3"/>
+      </g>
+
+      <!-- mini fridge -->
+      <g>
+        <rect x="150" y="245" width="52" height="75" rx="6" fill="#173236" stroke="#100e1c" stroke-width="4"/>
+        <rect x="150" y="245" width="52" height="10" rx="4" fill="#4fd6e8" opacity="0.7" filter="url(#neonGlow)"/>
+        <rect x="158" y="270" width="36" height="4" fill="#0e2124"/>
+      </g>
+
+      <!-- couch -->
+      <g>
+        <rect x="215" y="245" width="185" height="30" fill="#221f38" stroke="#100e1c" stroke-width="4"/>
+        <rect x="220" y="205" width="175" height="55" rx="16" fill="#2c2847" stroke="#100e1c" stroke-width="5"/>
+        <rect x="220" y="245" width="175" height="45" rx="16" fill="#2c2847" stroke="#100e1c" stroke-width="5"/>
+        <rect x="228" y="253" width="75" height="30" rx="10" fill="#3a3660" stroke="#100e1c" stroke-width="2"/>
+        <rect x="310" y="253" width="77" height="30" rx="10" fill="#3a3660" stroke="#100e1c" stroke-width="2"/>
+        <rect x="215" y="288" width="10" height="16" fill="#100e1c"/>
+        <rect x="385" y="288" width="10" height="16" fill="#100e1c"/>
+      </g>
+
+      <!-- bean bag -->
+      <path d="M425 300 Q410 260 448 252 Q486 246 490 282 Q492 308 460 310 Q436 312 425 300 Z" fill="#c9622f" stroke="#100e1c" stroke-width="4"/>
+
+      <!-- skateboard leaning -->
+      <g transform="rotate(22 500 300)">
+        <rect x="470" y="256" width="92" height="15" rx="7" fill="#7c3aed" stroke="#100e1c" stroke-width="4"/>
+        <circle cx="482" cy="278" r="8" fill="#191626" stroke="#100e1c" stroke-width="3"/>
+        <circle cx="550" cy="278" r="8" fill="#191626" stroke="#100e1c" stroke-width="3"/>
+      </g>
+
+      <!-- speakers -->
+      <g>
+        <rect x="645" y="185" width="58" height="112" rx="6" fill="#191626" stroke="#100e1c" stroke-width="4"/>
+        <circle cx="674" cy="213" r="15" fill="#3a3660" stroke="#100e1c" stroke-width="3"/>
+        <circle cx="674" cy="252" r="19" fill="#3a3660" stroke="#100e1c" stroke-width="3"/>
+      </g>
+
+      <!-- bike leaning -->
+      <g transform="translate(700 250)">
+        <circle cx="18" cy="70" r="26" fill="none" stroke="#4fd6e8" stroke-width="4"/>
+        <circle cx="78" cy="70" r="26" fill="none" stroke="#4fd6e8" stroke-width="4"/>
+        <path d="M18 70 L46 30 L78 70 M46 30 L40 70 M46 30 L60 30" fill="none" stroke="#7c3aed" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- misc clutter: crates + can -->
+      <g>
+        <rect x="740" y="355" width="14" height="22" rx="3" fill="#e8823a" stroke="#100e1c" stroke-width="2"/>
+      </g>
+
+      <!-- mic stand: the open "recording spot", with a glowing floor ring -->
+      <circle cx="430" cy="356" r="70" fill="none" stroke="#7c3aed" stroke-width="3" opacity="0.6" filter="url(#neonGlow)"/>
+      <g id="mic-stand-svg">
+        <ellipse cx="430" cy="352" rx="34" ry="8" fill="#100e1c" opacity="0.5"/>
+        <line x1="410" y1="350" x2="450" y2="350" stroke="#2b2740" stroke-width="6" stroke-linecap="round"/>
+        <line x1="430" y1="350" x2="430" y2="180" stroke="#2b2740" stroke-width="6"/>
+        <line x1="430" y1="205" x2="452" y2="185" stroke="#2b2740" stroke-width="5"/>
+        <circle cx="430" cy="168" r="18" fill="#2b2740" stroke="#100e1c" stroke-width="4"/>
+        <circle cx="430" cy="168" r="10" fill="#4fd6e8" opacity="0.8"/>
+      </g>
+    </svg>
+
+    <!-- REPLICO's one original character -->
+    <div id="character" class="character expr-neutral">
+      <svg class="char-svg" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+        <g class="leg leg-left">
+          <rect x="33" y="94" width="16" height="44" rx="7" fill="#211d33" stroke="#100e1c" stroke-width="4"/>
+          <rect x="29" y="134" width="24" height="13" rx="6" fill="#191626" stroke="#7c3aed" stroke-width="3"/>
+        </g>
+        <g class="leg leg-right">
+          <rect x="51" y="94" width="16" height="44" rx="7" fill="#211d33" stroke="#100e1c" stroke-width="4"/>
+          <rect x="47" y="134" width="24" height="13" rx="6" fill="#191626" stroke="#7c3aed" stroke-width="3"/>
+        </g>
+
+        <rect x="26" y="88" width="48" height="24" rx="11" fill="#191626" stroke="#100e1c" stroke-width="4"/>
+
+        <g class="char-body">
+          <rect x="12" y="60" width="14" height="38" rx="7" fill="#15121f" stroke="#100e1c" stroke-width="4"/>
+          <rect x="74" y="60" width="14" height="38" rx="7" fill="#15121f" stroke="#100e1c" stroke-width="4"/>
+          <rect x="23" y="54" width="54" height="44" rx="18" fill="#15121f" stroke="#3a3555" stroke-width="3"/>
+          <text x="50" y="83" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="18" fill="#8b5cf6">R</text>
+        </g>
+
+        <g class="char-head">
+          <circle cx="50" cy="33" r="29" fill="#c98a5e" stroke="#100e1c" stroke-width="4"/>
+
+          <path d="M20 24 Q18 -4 40 4 Q50 -6 60 4 Q82 -4 80 24 Q70 6 50 8 Q30 6 20 24 Z" fill="#1b1420" stroke="#100e1c" stroke-width="3"/>
+          <path d="M14 20 L22 2 L30 16 Z" fill="#1b1420" stroke="#100e1c" stroke-width="2"/>
+          <path d="M86 20 L78 2 L70 16 Z" fill="#1b1420" stroke="#100e1c" stroke-width="2"/>
+          <rect x="19" y="19" width="62" height="9" rx="4.5" fill="#8b5cf6" stroke="#100e1c" stroke-width="2.5"/>
+
+          <g class="face face-neutral">
+            <ellipse cx="38" cy="36" rx="7.5" ry="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <ellipse cx="62" cy="36" rx="7.5" ry="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <circle cx="39" cy="38" r="4" fill="#1b1420"/>
+            <circle cx="63" cy="38" r="4" fill="#1b1420"/>
+            <circle cx="37" cy="35" r="1.3" fill="#fff"/>
+            <circle cx="61" cy="35" r="1.3" fill="#fff"/>
+            <path d="M42 51 Q50 54 58 51" fill="none" stroke="#100e1c" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+          <g class="face face-happy">
+            <path d="M30 32 Q38 24 46 32" fill="none" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
+            <path d="M54 32 Q62 24 70 32" fill="none" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="38" cy="37" rx="7" ry="8.5" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <ellipse cx="62" cy="37" rx="7" ry="8.5" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <circle cx="39" cy="39" r="4" fill="#1b1420"/>
+            <circle cx="63" cy="39" r="4" fill="#1b1420"/>
+            <path d="M34 48 Q50 64 66 48 Q50 58 34 48 Z" fill="#7a2b3a" stroke="#100e1c" stroke-width="3"/>
+          </g>
+          <g class="face face-shock">
+            <circle cx="38" cy="37" r="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <circle cx="62" cy="37" r="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <circle cx="38" cy="38" r="3" fill="#1b1420"/>
+            <circle cx="62" cy="38" r="3" fill="#1b1420"/>
+            <ellipse cx="50" cy="52" rx="7" ry="9" fill="#7a2b3a" stroke="#100e1c" stroke-width="3"/>
+          </g>
+          <g class="face face-derp">
+            <ellipse cx="38" cy="36" rx="7.5" ry="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
+            <circle cx="39" cy="38" r="4" fill="#1b1420"/>
+            <path d="M56 34 L68 40 M68 34 L56 40" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
+            <path d="M38 50 Q46 45 54 50 Q62 55 68 49" fill="none" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="55" cy="55" rx="4" ry="6" fill="#e0607a"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Multiplayer clones of the character above get added here at runtime -->
+    <div id="mp-characters" class="mp-characters"></div>
+  </div>
+
+  <!-- START / MODE SELECT -->
+  <section id="screen-start" class="screen active">
+    <p class="tagline">Hear it. Replicate it.</p>
+    <button id="btn-start" class="btn btn-primary">SINGLE PLAYER</button>
+    <button id="btn-mp-mode" class="btn btn-secondary">MULTIPLAYER</button>
+    <p id="start-error" class="error-text"></p>
+  </section>
+
+  <!-- MULTIPLAYER: LOBBY (name + host/join) -->
+  <section id="screen-mp-lobby" class="screen">
+    <p class="tagline">Play with friends</p>
+    <input id="mp-name-input" class="text-input" placeholder="Your name" maxlength="16" />
+    <div class="mp-lobby-actions">
+      <button id="btn-mp-create" class="btn btn-primary">HOST GAME</button>
+    </div>
+    <div class="mp-lobby-actions">
+      <input id="mp-code-input" class="text-input code-input" placeholder="CODE" maxlength="4" />
+      <button id="btn-mp-join" class="btn btn-secondary">JOIN GAME</button>
+    </div>
+    <p id="mp-lobby-error" class="error-text"></p>
+  </section>
+
+  <!-- MULTIPLAYER: ROOM (waiting for players, host starts the match) -->
+  <section id="screen-mp-room" class="screen">
+    <p class="tagline">Room Code</p>
+    <p id="mp-room-code" class="room-code">----</p>
+    <ul id="mp-player-list" class="mp-player-list"></ul>
+    <button id="btn-mp-start" class="btn btn-primary">START GAME</button>
+    <p id="mp-room-hint" class="error-text"></p>
+  </section>
+
+  <!-- ROUND INTRO -->
+  <section id="screen-round-intro" class="screen">
+    <p id="round-banner" class="round-banner">ROUND 1/5</p>
+  </section>
+
+  <!-- LISTEN -->
+  <section id="screen-listen" class="screen">
+    <p class="big-label">LISTEN</p>
+    <p id="sound-name" class="sound-name"></p>
+    <div class="pulse-icon">🔊</div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="screen-countdown" class="screen">
+    <p id="countdown-number" class="countdown-number">3</p>
+  </section>
+
+  <!-- RECORD -->
+  <section id="screen-record" class="screen">
+    <p class="big-label replicate-label">REPLICATE!</p>
+    <div class="rec-indicator">
+      <span class="rec-dot"></span>
+      <span>RECORDING</span>
+    </div>
+    <div class="timer-bar-track">
+      <div id="timer-bar-fill" class="timer-bar-fill"></div>
+    </div>
+  </section>
+
+  <!-- PLAYBACK (the funny part - everyone hears the attempt before the score) -->
+  <section id="screen-playback" class="screen">
+    <p class="big-label">PLAYBACK</p>
+    <div class="pulse-icon">🔁</div>
+  </section>
+
+  <!-- REACTION -->
+  <section id="screen-reaction" class="screen">
+    <p class="big-label reaction-label">...</p>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="screen-results" class="screen">
+    <p class="overall-score-label">OVERALL SCORE</p>
+    <p id="overall-score" class="overall-score-value">0</p>
+
+    <div class="score-grid">
+      <div class="score-row">
+        <span class="score-name">PITCH</span>
+        <div class="score-bar-track"><div id="bar-pitch" class="score-bar-fill"></div></div>
+        <span id="val-pitch" class="score-value">0</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">TIMING</span>
+        <div class="score-bar-track"><div id="bar-timing" class="score-bar-fill"></div></div>
+        <span id="val-timing" class="score-value">0</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">ENERGY</span>
+        <div class="score-bar-track"><div id="bar-energy" class="score-bar-fill"></div></div>
+        <span id="val-energy" class="score-value">0</span>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button id="btn-playback" class="btn btn-secondary">▶ HEAR AGAIN</button>
+      <button id="btn-next-round" class="btn btn-primary">NEXT ROUND</button>
+    </div>
+  </section>
+
+  <!-- FINAL SCORE (single-player) -->
+  <section id="screen-final" class="screen">
+    <p class="overall-score-label">FINAL SCORE</p>
+    <p id="final-score" class="overall-score-value">0</p>
+    <button id="btn-play-again" class="btn btn-primary">PLAY AGAIN</button>
+  </section>
+
+  <!-- MULTIPLAYER: ROUND RESULTS (everyone imitated the same sound this round) -->
+  <section id="screen-mp-round-result" class="screen">
+    <p class="overall-score-label" id="mp-round-result-title">ROUND 1 RESULTS</p>
+    <ol id="mp-round-leaderboard" class="mp-leaderboard"></ol>
+  </section>
+
+  <!-- FINAL RESULTS (multiplayer, ranked) -->
+  <section id="screen-mp-final" class="screen">
+    <p class="overall-score-label">FINAL RESULTS</p>
+    <p id="mp-winner-banner" class="winner-banner"></p>
+    <ol id="mp-leaderboard" class="mp-leaderboard"></ol>
+    <button id="btn-mp-back-to-lobby" class="btn btn-primary">BACK TO LOBBY</button>
+  </section>
+
+</div>
+
+<audio id="playback-audio" hidden></audio>
+<audio id="mp-playback-audio" hidden></audio>
+
+<script src="config.js"></script>
+<script src="game-config.js"></script>
+<script src="audio/sound-generator.js"></script>
+<script src="audio/sound-library.js"></script>
+<script src="audio/recorder.js"></script>
+<script src="audio/analyzer.js"></script>
+<script src="audio/scoring.js"></script>
+<script src="net/multiplayer-client.js"></script>
+<script src="app.js"></script>
+<script src="multiplayer.js"></script>
+<script src="bg-music.js"></script>
+</body>
+</html>
