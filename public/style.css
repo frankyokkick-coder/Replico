@@ -111,7 +111,7 @@ body {
   z-index: 2;
 }
 
-.character.at-mic { left: 33%; }
+.character.at-mic { left: 28%; }
 .character.facing-left .char-svg { transform: scaleX(-1); }
 
 /* Multiplayer: extra character clones sit in fixed waiting slots until

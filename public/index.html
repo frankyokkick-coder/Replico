@@ -36,192 +36,232 @@
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
+        <linearGradient id="duskSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3a2a5c"/>
+          <stop offset="0.55" stop-color="#8a5570"/>
+          <stop offset="1" stop-color="#eda15f"/>
+        </linearGradient>
+        <linearGradient id="floorSheen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#332f52" stop-opacity="0.4"/>
+          <stop offset="1" stop-color="#332f52" stop-opacity="0"/>
+        </linearGradient>
       </defs>
 
-      <!-- wall -->
-      <rect x="0" y="0" width="800" height="320" fill="#161225"/>
-      <rect x="0" y="0" width="800" height="320" fill="#1c1730" opacity="0.5"/>
-      <!-- floor -->
-      <rect x="0" y="320" width="800" height="130" fill="#221e30"/>
-      <line x1="0" y1="356" x2="800" y2="356" stroke="#191627" stroke-width="4"/>
-      <line x1="0" y1="400" x2="800" y2="400" stroke="#191627" stroke-width="4"/>
+      <!-- wall: dark industrial, near-black -->
+      <rect x="0" y="0" width="800" height="315" fill="#0c0b13"/>
+      <rect x="0" y="0" width="800" height="315" fill="#151228" opacity="0.45"/>
+      <line x1="0" y1="14" x2="800" y2="14" stroke="#040309" stroke-width="6"/>
 
-      <!-- graffiti mural blobs behind everything -->
-      <g opacity="0.5">
-        <path d="M470 90 Q520 60 560 95 Q600 120 555 150 Q500 165 480 130 Z" fill="#7c3aed"/>
-        <path d="M300 100 Q340 80 365 110 Q380 135 345 145 Q310 150 300 120 Z" fill="#14b8a6"/>
-      </g>
+      <!-- diagonal ceiling light tubes -->
+      <line x1="55" y1="8" x2="205" y2="52" stroke="#eaf6ff" stroke-width="4" stroke-linecap="round" opacity="0.9" filter="url(#neonGlow)"/>
+      <line x1="330" y1="6" x2="470" y2="6" stroke="#eaf6ff" stroke-width="4" stroke-linecap="round" opacity="0.9" filter="url(#neonGlow)"/>
+      <line x1="590" y1="8" x2="745" y2="52" stroke="#eaf6ff" stroke-width="4" stroke-linecap="round" opacity="0.9" filter="url(#neonGlow)"/>
 
-      <!-- neon REPLICO sign -->
-      <text x="400" y="70" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="46" letter-spacing="3" fill="#ff6ee0" filter="url(#neonGlow)">REPLICO</text>
+      <!-- floor: polished concrete with soft reflective sheen -->
+      <rect x="0" y="315" width="800" height="135" fill="#17141e"/>
+      <rect x="0" y="315" width="800" height="135" fill="url(#floorSheen)"/>
+      <line x1="0" y1="345" x2="800" y2="345" stroke="#0e0c15" stroke-width="3" opacity="0.6"/>
+      <line x1="0" y1="392" x2="800" y2="392" stroke="#0e0c15" stroke-width="3" opacity="0.5"/>
+      <ellipse cx="140" cy="405" rx="70" ry="13" fill="#4fc3ff" opacity="0.12"/>
+      <ellipse cx="400" cy="425" rx="95" ry="16" fill="#8b6cff" opacity="0.16"/>
+      <ellipse cx="640" cy="410" rx="75" ry="13" fill="#eda15f" opacity="0.10"/>
 
-      <!-- neon tube accents -->
-      <line x1="55" y1="45" x2="150" y2="90" stroke="#ff6ee0" stroke-width="7" stroke-linecap="round" filter="url(#neonGlow)"/>
-      <line x1="745" y1="45" x2="650" y2="90" stroke="#4fd6e8" stroke-width="7" stroke-linecap="round" filter="url(#neonGlow)"/>
-
-      <!-- rolling metal garage door -->
+      <!-- garage door, back center, with a dusk-and-palms window strip -->
       <g>
-        <rect x="295" y="150" width="220" height="170" rx="4" fill="#2a2740" stroke="#100e1c" stroke-width="6"/>
-        <line x1="295" y1="168" x2="515" y2="168" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="186" x2="515" y2="186" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="204" x2="515" y2="204" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="222" x2="515" y2="222" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="240" x2="515" y2="240" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="258" x2="515" y2="258" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="276" x2="515" y2="276" stroke="#100e1c" stroke-width="3"/>
-        <line x1="295" y1="294" x2="515" y2="294" stroke="#100e1c" stroke-width="3"/>
-        <rect x="400" y="150" width="10" height="170" fill="#1d1a2e"/>
+        <rect x="300" y="128" width="230" height="188" fill="#16131e" stroke="#040309" stroke-width="6"/>
+        <rect x="313" y="140" width="204" height="46" fill="url(#duskSky)"/>
+        <path d="M341 186 L341 158 M341 163 Q331 156 323 160 M341 161 Q351 154 359 158 M341 158 Q333 148 327 150" stroke="#1a1020" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M481 186 L481 156 M481 161 Q471 153 463 157 M481 159 Q491 151 499 155 M481 156 Q473 146 467 148" stroke="#1a1020" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <line x1="367" y1="140" x2="367" y2="186" stroke="#0e0c15" stroke-width="3"/>
+        <line x1="421" y1="140" x2="421" y2="186" stroke="#0e0c15" stroke-width="3"/>
+        <line x1="475" y1="140" x2="475" y2="186" stroke="#0e0c15" stroke-width="3"/>
+        <line x1="300" y1="198" x2="530" y2="198" stroke="#040309" stroke-width="3"/>
+        <line x1="300" y1="218" x2="530" y2="218" stroke="#040309" stroke-width="3"/>
+        <line x1="300" y1="238" x2="530" y2="238" stroke="#040309" stroke-width="3"/>
+        <line x1="300" y1="258" x2="530" y2="258" stroke="#040309" stroke-width="3"/>
+        <line x1="300" y1="278" x2="530" y2="278" stroke="#040309" stroke-width="3"/>
+        <line x1="300" y1="298" x2="530" y2="298" stroke="#040309" stroke-width="3"/>
       </g>
 
-      <!-- posters / stickers -->
-      <g transform="rotate(-6 175 120)">
-        <rect x="140" y="85" width="66" height="86" rx="6" fill="#14b8a6" stroke="#100e1c" stroke-width="4"/>
-        <path d="M173 100 L182 122 L205 122 L187 136 L194 158 L173 144 L152 158 L159 136 L141 122 L164 122 Z" fill="#ffd166"/>
-      </g>
-      <circle cx="608" cy="118" r="30" fill="#191626" stroke="#4fd6e8" stroke-width="3" filter="url(#neonGlow)"/>
-      <path d="M596 106 L603 113 M603 106 L596 113" stroke="#4fd6e8" stroke-width="3" stroke-linecap="round"/>
-      <path d="M613 106 L620 113 M620 106 L613 113" stroke="#4fd6e8" stroke-width="3" stroke-linecap="round"/>
-      <path d="M594 126 Q608 138 622 126" fill="none" stroke="#4fd6e8" stroke-width="3" stroke-linecap="round"/>
-      <g transform="rotate(5 570 200)">
-        <rect x="540" y="168" width="56" height="66" rx="8" fill="#7c3aed" stroke="#100e1c" stroke-width="4"/>
-        <circle cx="568" cy="192" r="4" fill="#ffd166"/>
-        <circle cx="568" cy="208" r="4" fill="#ffd166"/>
-        <circle cx="556" cy="200" r="4" fill="#ffd166"/>
-        <circle cx="580" cy="200" r="4" fill="#ffd166"/>
-      </g>
-
-      <!-- shelving unit: crates, basketball, trophy -->
+      <!-- neon REPLICO wordmark + crown emblem, upper-left wall -->
       <g>
-        <rect x="24" y="150" width="110" height="160" fill="none" stroke="#3a3555" stroke-width="5"/>
-        <line x1="24" y1="205" x2="134" y2="205" stroke="#3a3555" stroke-width="5"/>
-        <line x1="24" y1="258" x2="134" y2="258" stroke="#3a3555" stroke-width="5"/>
-        <rect x="32" y="160" width="36" height="36" rx="4" fill="#4a4470" stroke="#100e1c" stroke-width="3"/>
-        <rect x="76" y="164" width="30" height="30" rx="4" fill="#3a355a" stroke="#100e1c" stroke-width="3"/>
-        <circle cx="50" cy="235" r="18" fill="#e8823a" stroke="#100e1c" stroke-width="3"/>
-        <path d="M50 217 L50 253 M32 235 L68 235" stroke="#100e1c" stroke-width="2"/>
-        <path d="M92 288 L92 268 Q92 260 100 260 Q108 260 108 268 L108 288 Z" fill="#ffd166" stroke="#100e1c" stroke-width="3"/>
-        <rect x="30" y="270" width="34" height="30" rx="3" fill="#2a2740" stroke="#100e1c" stroke-width="3"/>
+        <path d="M52 52 q6 -17 12 0 q6 -21 12 0 q6 -17 12 0" fill="none" stroke="#4fc3ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow)"/>
+        <line x1="47" y1="52" x2="97" y2="52" stroke="#4fc3ff" stroke-width="4" stroke-linecap="round" filter="url(#neonGlow)"/>
+        <text x="28" y="108" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="38" letter-spacing="0.5" fill="#4fc3ff" filter="url(#neonGlow)">REPLICO</text>
       </g>
 
-      <!-- mini fridge -->
+      <!-- small crown neon + wall screen, right side -->
+      <g transform="translate(686,54) scale(0.55)">
+        <path d="M0 30 q8 -22 16 0 q8 -26 16 0 q8 -22 16 0" fill="none" stroke="#4fc3ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow)"/>
+        <line x1="-6" y1="30" x2="54" y2="30" stroke="#4fc3ff" stroke-width="5" stroke-linecap="round" filter="url(#neonGlow)"/>
+      </g>
+      <rect x="655" y="95" width="92" height="56" rx="3" fill="#08070d" stroke="#2a2836" stroke-width="3"/>
+      <rect x="661" y="101" width="80" height="44" fill="#1a1828"/>
+
+      <!-- original wall art (no real photography/logos reproduced) -->
+      <g transform="rotate(-4 178 118)">
+        <rect x="146" y="82" width="64" height="82" rx="4" fill="#100e18" stroke="#2a2836" stroke-width="3"/>
+        <path d="M155 150 L172 100 L189 150" fill="none" stroke="#4fc3ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+      </g>
+
+      <!-- LEFT: skate/shoe display shelving -->
       <g>
-        <rect x="150" y="245" width="52" height="75" rx="6" fill="#173236" stroke="#100e1c" stroke-width="4"/>
-        <rect x="150" y="245" width="52" height="10" rx="4" fill="#4fd6e8" opacity="0.7" filter="url(#neonGlow)"/>
-        <rect x="158" y="270" width="36" height="4" fill="#0e2124"/>
+        <rect x="8" y="145" width="122" height="168" fill="none" stroke="#26243a" stroke-width="5"/>
+        <line x1="8" y1="188" x2="130" y2="188" stroke="#26243a" stroke-width="4"/>
+        <line x1="8" y1="231" x2="130" y2="231" stroke="#26243a" stroke-width="4"/>
+        <line x1="8" y1="274" x2="130" y2="274" stroke="#26243a" stroke-width="4"/>
+        <g>
+          <path d="M20 184 q0 -17 13 -17 h15 q9 0 9 9 v8 z" fill="#111018" stroke="#040309" stroke-width="2"/>
+          <circle cx="25" cy="186" r="2.6" fill="#ff5f9e"/><circle cx="32" cy="186" r="2.6" fill="#ff5f9e"/><circle cx="39" cy="186" r="2.6" fill="#ff5f9e"/>
+          <path d="M66 184 q0 -17 13 -17 h15 q9 0 9 9 v8 z" fill="#17151f" stroke="#040309" stroke-width="2"/>
+          <circle cx="71" cy="186" r="2.6" fill="#4fc3ff"/><circle cx="78" cy="186" r="2.6" fill="#4fc3ff"/><circle cx="85" cy="186" r="2.6" fill="#4fc3ff"/>
+        </g>
+        <g>
+          <path d="M20 227 q0 -17 13 -17 h15 q9 0 9 9 v8 z" fill="#111018" stroke="#040309" stroke-width="2"/>
+          <circle cx="25" cy="229" r="2.6" fill="#ffd166"/><circle cx="32" cy="229" r="2.6" fill="#ffd166"/><circle cx="39" cy="229" r="2.6" fill="#ffd166"/>
+          <path d="M66 227 q0 -17 13 -17 h15 q9 0 9 9 v8 z" fill="#17151f" stroke="#040309" stroke-width="2"/>
+          <circle cx="71" cy="229" r="2.6" fill="#8b6cff"/><circle cx="78" cy="229" r="2.6" fill="#8b6cff"/><circle cx="85" cy="229" r="2.6" fill="#8b6cff"/>
+        </g>
+        <circle cx="42" cy="257" r="14" fill="#0c0b12" stroke="#040309" stroke-width="2"/>
       </g>
+      <rect x="14" y="392" width="88" height="38" rx="4" fill="#0a090f" opacity="0.85"/>
+      <path d="M46 420 q6 -14 12 0 q6 -17 12 0" fill="none" stroke="#26243a" stroke-width="3" stroke-linecap="round"/>
 
-      <!-- couch -->
+      <!-- tool cabinet -->
       <g>
-        <rect x="215" y="245" width="185" height="30" fill="#221f38" stroke="#100e1c" stroke-width="4"/>
-        <rect x="220" y="205" width="175" height="55" rx="16" fill="#2c2847" stroke="#100e1c" stroke-width="5"/>
-        <rect x="220" y="245" width="175" height="45" rx="16" fill="#2c2847" stroke="#100e1c" stroke-width="5"/>
-        <rect x="228" y="253" width="75" height="30" rx="10" fill="#3a3660" stroke="#100e1c" stroke-width="2"/>
-        <rect x="310" y="253" width="77" height="30" rx="10" fill="#3a3660" stroke="#100e1c" stroke-width="2"/>
-        <rect x="215" y="288" width="10" height="16" fill="#100e1c"/>
-        <rect x="385" y="288" width="10" height="16" fill="#100e1c"/>
+        <rect x="140" y="252" width="60" height="68" rx="3" fill="#191723" stroke="#040309" stroke-width="3"/>
+        <rect x="146" y="259" width="48" height="15" rx="2" fill="#100e18" stroke="#040309" stroke-width="2"/>
+        <rect x="146" y="278" width="48" height="15" rx="2" fill="#100e18" stroke="#040309" stroke-width="2"/>
+        <rect x="146" y="297" width="48" height="15" rx="2" fill="#100e18" stroke="#040309" stroke-width="2"/>
+        <circle cx="170" cy="266" r="1.6" fill="#524e66"/>
+        <circle cx="170" cy="285" r="1.6" fill="#524e66"/>
+        <circle cx="170" cy="304" r="1.6" fill="#524e66"/>
       </g>
 
-      <!-- bean bag -->
-      <path d="M425 300 Q410 260 448 252 Q486 246 490 282 Q492 308 460 310 Q436 312 425 300 Z" fill="#c9622f" stroke="#100e1c" stroke-width="4"/>
-
-      <!-- skateboard leaning -->
-      <g transform="rotate(22 500 300)">
-        <rect x="470" y="256" width="92" height="15" rx="7" fill="#7c3aed" stroke="#100e1c" stroke-width="4"/>
-        <circle cx="482" cy="278" r="8" fill="#191626" stroke="#100e1c" stroke-width="3"/>
-        <circle cx="550" cy="278" r="8" fill="#191626" stroke="#100e1c" stroke-width="3"/>
-      </g>
-
-      <!-- speakers -->
+      <!-- mini fridge / cooler (unbranded) -->
       <g>
-        <rect x="645" y="185" width="58" height="112" rx="6" fill="#191626" stroke="#100e1c" stroke-width="4"/>
-        <circle cx="674" cy="213" r="15" fill="#3a3660" stroke="#100e1c" stroke-width="3"/>
-        <circle cx="674" cy="252" r="19" fill="#3a3660" stroke="#100e1c" stroke-width="3"/>
+        <rect x="205" y="248" width="50" height="72" rx="5" fill="#10171b" stroke="#040309" stroke-width="3"/>
+        <rect x="205" y="248" width="50" height="9" rx="3" fill="#4fc3ff" opacity="0.55" filter="url(#neonGlow)"/>
+        <rect x="212" y="270" width="36" height="4" fill="#081012"/>
+        <circle cx="230" cy="296" r="9" fill="none" stroke="#3fae4f" stroke-width="2" opacity="0.6"/>
       </g>
 
-      <!-- bike leaning -->
-      <g transform="translate(700 250)">
-        <circle cx="18" cy="70" r="26" fill="none" stroke="#4fd6e8" stroke-width="4"/>
-        <circle cx="78" cy="70" r="26" fill="none" stroke="#4fd6e8" stroke-width="4"/>
-        <path d="M18 70 L46 30 L78 70 M46 30 L40 70 M46 30 L60 30" fill="none" stroke="#7c3aed" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- potted plant -->
+      <g transform="translate(260,266)">
+        <path d="M0 42 L6 42 L4 22 L14 22 L10 42 L20 42 L20 48 L0 48 Z" fill="#12111c" stroke="#040309" stroke-width="2"/>
+        <path d="M10 22 Q-6 8 2 -8 Q10 6 10 22 Q22 4 30 -6 Q22 14 10 22 Q18 0 10 22" fill="none" stroke="#2c6e46" stroke-width="4" stroke-linecap="round"/>
       </g>
 
-      <!-- misc clutter: crates + can -->
-      <g>
-        <rect x="740" y="355" width="14" height="22" rx="3" fill="#e8823a" stroke="#100e1c" stroke-width="2"/>
-      </g>
-
-      <!-- mic stand: the open "recording spot", with a glowing floor ring -->
-      <circle cx="430" cy="356" r="70" fill="none" stroke="#7c3aed" stroke-width="3" opacity="0.6" filter="url(#neonGlow)"/>
+      <!-- MIC: studio condenser mic + pop filter on a round-base stand -->
+      <circle cx="400" cy="400" r="64" fill="none" stroke="#4fc3ff" stroke-width="3" opacity="0.45" filter="url(#neonGlow)"/>
       <g id="mic-stand-svg">
-        <ellipse cx="430" cy="352" rx="34" ry="8" fill="#100e1c" opacity="0.5"/>
-        <line x1="410" y1="350" x2="450" y2="350" stroke="#2b2740" stroke-width="6" stroke-linecap="round"/>
-        <line x1="430" y1="350" x2="430" y2="180" stroke="#2b2740" stroke-width="6"/>
-        <line x1="430" y1="205" x2="452" y2="185" stroke="#2b2740" stroke-width="5"/>
-        <circle cx="430" cy="168" r="18" fill="#2b2740" stroke="#100e1c" stroke-width="4"/>
-        <circle cx="430" cy="168" r="10" fill="#4fd6e8" opacity="0.8"/>
+        <ellipse cx="400" cy="410" rx="30" ry="9" fill="#040309" opacity="0.55"/>
+        <ellipse cx="400" cy="404" rx="26" ry="9" fill="#17151f" stroke="#040309" stroke-width="3"/>
+        <rect x="397" y="235" width="6" height="169" fill="#17151f" stroke="#040309" stroke-width="2"/>
+        <line x1="400" y1="255" x2="424" y2="236" stroke="#17151f" stroke-width="5" stroke-linecap="round"/>
+        <rect x="386" y="205" width="28" height="46" rx="10" fill="#211f2c" stroke="#040309" stroke-width="3"/>
+        <rect x="390" y="212" width="20" height="30" rx="6" fill="#35323f"/>
+        <circle cx="400" cy="195" r="22" fill="#2b2836" opacity="0.3" stroke="#6a6678" stroke-width="1.5"/>
+      </g>
+
+      <!-- lounge: dark leather couch + coffee table -->
+      <g>
+        <rect x="520" y="246" width="190" height="32" fill="#0a0910" stroke="#040309" stroke-width="4"/>
+        <rect x="525" y="203" width="180" height="58" rx="14" fill="#100e16" stroke="#040309" stroke-width="5"/>
+        <rect x="525" y="246" width="180" height="46" rx="14" fill="#100e16" stroke="#040309" stroke-width="5"/>
+        <rect x="533" y="254" width="78" height="30" rx="9" fill="#171420"/>
+        <rect x="617" y="254" width="80" height="30" rx="9" fill="#171420"/>
+        <rect x="520" y="290" width="10" height="16" fill="#040309"/>
+        <rect x="700" y="290" width="10" height="16" fill="#040309"/>
+      </g>
+      <g>
+        <rect x="560" y="330" width="90" height="10" fill="#040309"/>
+        <rect x="553" y="311" width="102" height="20" rx="3" fill="#12101a" stroke="#040309" stroke-width="2"/>
+        <rect x="563" y="316" width="18" height="10" rx="1" fill="#26243a"/>
+        <rect x="588" y="316" width="30" height="10" rx="1" fill="#26243a"/>
+      </g>
+      <path d="M715 320 Q700 283 733 276 Q766 271 770 304 Q772 327 745 329 Q722 331 715 320 Z" fill="#10171b" stroke="#040309" stroke-width="4"/>
+
+      <!-- RIGHT: tool/skate shelf + skateboard display -->
+      <g>
+        <rect x="738" y="148" width="56" height="166" fill="none" stroke="#26243a" stroke-width="5"/>
+        <line x1="738" y1="228" x2="794" y2="228" stroke="#26243a" stroke-width="4"/>
+        <g transform="rotate(8 766 193)">
+          <rect x="756" y="158" width="16" height="72" rx="7" fill="#eda15f" stroke="#040309" stroke-width="3"/>
+          <circle cx="760" cy="234" r="4" fill="#111018"/><circle cx="772" cy="234" r="4" fill="#111018"/>
+        </g>
+        <circle cx="766" cy="268" r="13" fill="#0c0b12" stroke="#040309" stroke-width="2"/>
       </g>
     </svg>
 
     <!-- REPLICO's one original character -->
     <div id="character" class="character expr-neutral">
       <svg class="char-svg" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+        <!-- legs: black cargo pants + black/white aggressive inline skates -->
         <g class="leg leg-left">
-          <rect x="33" y="94" width="16" height="44" rx="7" fill="#211d33" stroke="#100e1c" stroke-width="4"/>
-          <rect x="29" y="134" width="24" height="13" rx="6" fill="#191626" stroke="#7c3aed" stroke-width="3"/>
+          <rect x="33" y="92" width="16" height="38" rx="6" fill="#17151f" stroke="#040309" stroke-width="4"/>
+          <rect x="35" y="103" width="10" height="13" rx="2" fill="#0d0c14" stroke="#040309" stroke-width="1.5"/>
+          <rect x="29" y="128" width="23" height="15" rx="5" fill="#0a0910" stroke="#040309" stroke-width="3"/>
+          <rect x="27" y="140" width="27" height="4" rx="2" fill="#ece9f5"/>
+          <circle cx="31" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
+          <circle cx="37" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
+          <circle cx="43" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
+          <circle cx="49" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
         </g>
         <g class="leg leg-right">
-          <rect x="51" y="94" width="16" height="44" rx="7" fill="#211d33" stroke="#100e1c" stroke-width="4"/>
-          <rect x="47" y="134" width="24" height="13" rx="6" fill="#191626" stroke="#7c3aed" stroke-width="3"/>
+          <rect x="51" y="92" width="16" height="38" rx="6" fill="#17151f" stroke="#040309" stroke-width="4"/>
+          <rect x="55" y="103" width="10" height="13" rx="2" fill="#0d0c14" stroke="#040309" stroke-width="1.5"/>
+          <rect x="48" y="128" width="23" height="15" rx="5" fill="#0a0910" stroke="#040309" stroke-width="3"/>
+          <rect x="46" y="140" width="27" height="4" rx="2" fill="#ece9f5"/>
+          <circle cx="50" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
+          <circle cx="56" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
+          <circle cx="62" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
+          <circle cx="68" cy="146" r="2.5" fill="#1c1a26" stroke="#040309" stroke-width="1"/>
         </g>
 
-        <rect x="26" y="88" width="48" height="24" rx="11" fill="#191626" stroke="#100e1c" stroke-width="4"/>
+        <!-- baggy cargo waist -->
+        <rect x="25" y="86" width="50" height="24" rx="11" fill="#131118" stroke="#040309" stroke-width="4"/>
 
         <g class="char-body">
-          <rect x="12" y="60" width="14" height="38" rx="7" fill="#15121f" stroke="#100e1c" stroke-width="4"/>
-          <rect x="74" y="60" width="14" height="38" rx="7" fill="#15121f" stroke="#100e1c" stroke-width="4"/>
-          <rect x="23" y="54" width="54" height="44" rx="18" fill="#15121f" stroke="#3a3555" stroke-width="3"/>
-          <text x="50" y="83" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="18" fill="#8b5cf6">R</text>
+          <rect x="11" y="58" width="15" height="38" rx="7" fill="#100e15" stroke="#040309" stroke-width="4"/>
+          <rect x="74" y="58" width="15" height="38" rx="7" fill="#100e15" stroke="#040309" stroke-width="4"/>
+          <rect x="21" y="52" width="58" height="46" rx="19" fill="#100e15" stroke="#2a2836" stroke-width="3"/>
+          <!-- chain -->
+          <path d="M40 58 Q50 68 60 58" fill="none" stroke="#c9c6d6" stroke-width="2"/>
+          <circle cx="50" cy="66" r="2.6" fill="#c9c6d6" stroke="#040309" stroke-width="1"/>
+          <!-- REPLICO wordmark on chest (original branding, no external logos) -->
+          <text x="50" y="84" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="9" letter-spacing="-0.3" fill="#4fc3ff">REPLICO</text>
         </g>
 
         <g class="char-head">
-          <circle cx="50" cy="33" r="29" fill="#c98a5e" stroke="#100e1c" stroke-width="4"/>
+          <circle cx="50" cy="32" r="26" fill="#a8734a" stroke="#040309" stroke-width="4"/>
 
-          <path d="M20 24 Q18 -4 40 4 Q50 -6 60 4 Q82 -4 80 24 Q70 6 50 8 Q30 6 20 24 Z" fill="#1b1420" stroke="#100e1c" stroke-width="3"/>
-          <path d="M14 20 L22 2 L30 16 Z" fill="#1b1420" stroke="#100e1c" stroke-width="2"/>
-          <path d="M86 20 L78 2 L70 16 Z" fill="#1b1420" stroke="#100e1c" stroke-width="2"/>
-          <rect x="19" y="19" width="62" height="9" rx="4.5" fill="#8b5cf6" stroke="#100e1c" stroke-width="2.5"/>
+          <!-- beanie -->
+          <path d="M22 26 Q20 -2 50 -3 Q80 -2 78 26 L78 20 Q50 10 22 20 Z" fill="#101018" stroke="#040309" stroke-width="3"/>
+          <rect x="21" y="16" width="58" height="10" rx="5" fill="#181722" stroke="#040309" stroke-width="2.5"/>
+
+          <!-- sunglasses (fixed, always on) -->
+          <rect x="21" y="27" width="58" height="13" rx="6" fill="#0a0910" stroke="#040309" stroke-width="2.5"/>
+          <rect x="25" y="30" width="21" height="7" rx="3.5" fill="#2a2836" opacity="0.9"/>
+          <rect x="54" y="30" width="21" height="7" rx="3.5" fill="#2a2836" opacity="0.9"/>
+          <line x1="46" y1="33" x2="54" y2="33" stroke="#0a0910" stroke-width="2.5"/>
+
+          <!-- facial hair -->
+          <path d="M33 44 Q33 55 50 57 Q67 55 67 44 Q67 52 60 53 Q62 46 58 46 Q58 51 50 52 Q42 51 42 46 Q38 46 40 53 Q33 52 33 44 Z" fill="#181018" stroke="#040309" stroke-width="1.5"/>
 
           <g class="face face-neutral">
-            <ellipse cx="38" cy="36" rx="7.5" ry="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <ellipse cx="62" cy="36" rx="7.5" ry="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <circle cx="39" cy="38" r="4" fill="#1b1420"/>
-            <circle cx="63" cy="38" r="4" fill="#1b1420"/>
-            <circle cx="37" cy="35" r="1.3" fill="#fff"/>
-            <circle cx="61" cy="35" r="1.3" fill="#fff"/>
-            <path d="M42 51 Q50 54 58 51" fill="none" stroke="#100e1c" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M44 50 Q50 52 56 50" fill="none" stroke="#040309" stroke-width="2.2" stroke-linecap="round"/>
           </g>
           <g class="face face-happy">
-            <path d="M30 32 Q38 24 46 32" fill="none" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
-            <path d="M54 32 Q62 24 70 32" fill="none" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
-            <ellipse cx="38" cy="37" rx="7" ry="8.5" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <ellipse cx="62" cy="37" rx="7" ry="8.5" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <circle cx="39" cy="39" r="4" fill="#1b1420"/>
-            <circle cx="63" cy="39" r="4" fill="#1b1420"/>
-            <path d="M34 48 Q50 64 66 48 Q50 58 34 48 Z" fill="#7a2b3a" stroke="#100e1c" stroke-width="3"/>
+            <path d="M42 48 Q50 58 58 48 Q50 55 42 48 Z" fill="#7a2b3a" stroke="#040309" stroke-width="2.2"/>
           </g>
           <g class="face face-shock">
-            <circle cx="38" cy="37" r="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <circle cx="62" cy="37" r="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <circle cx="38" cy="38" r="3" fill="#1b1420"/>
-            <circle cx="62" cy="38" r="3" fill="#1b1420"/>
-            <ellipse cx="50" cy="52" rx="7" ry="9" fill="#7a2b3a" stroke="#100e1c" stroke-width="3"/>
+            <ellipse cx="50" cy="51" rx="6" ry="7" fill="#7a2b3a" stroke="#040309" stroke-width="2.2"/>
+            <path d="M18 30 L14 26 M82 30 L86 26" stroke="#eaf6ff" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
           </g>
           <g class="face face-derp">
-            <ellipse cx="38" cy="36" rx="7.5" ry="9" fill="#fbfaff" stroke="#100e1c" stroke-width="2.5"/>
-            <circle cx="39" cy="38" r="4" fill="#1b1420"/>
-            <path d="M56 34 L68 40 M68 34 L56 40" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
-            <path d="M38 50 Q46 45 54 50 Q62 55 68 49" fill="none" stroke="#100e1c" stroke-width="3" stroke-linecap="round"/>
-            <ellipse cx="55" cy="55" rx="4" ry="6" fill="#e0607a"/>
+            <path d="M43 49 Q50 44 57 49 Q64 54 70 48" fill="none" stroke="#040309" stroke-width="2.2" stroke-linecap="round"/>
+            <ellipse cx="58" cy="54" rx="3.5" ry="5" fill="#e0607a"/>
           </g>
         </g>
       </svg>
