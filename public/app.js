@@ -51,6 +51,9 @@ const roundIndicatorEl = document.getElementById('round-indicator');
 const runningScoreEl = document.getElementById('running-score');
 const nextRoundBtn = document.getElementById('btn-next-round');
 const characterEl = document.getElementById('character');
+const charPhotoImg = characterEl.querySelector('.char-photo');
+const CHAR_PHOTO_IDLE_SRC = 'images/character-new.png';
+const CHAR_PHOTO_RECORD_SRC = 'images/mic3r.png';
 
 startBtn.addEventListener('click', onStartClicked);
 nextRoundBtn.addEventListener('click', onNextRoundClicked);
@@ -119,6 +122,7 @@ async function playNextRound() {
   await playReferenceSound(referenceBuffer);
 
   await runCountdown();
+  enterRecordingPose();
   const blob = await runRecording();
 
   state.recordedBlob = blob;
@@ -196,12 +200,29 @@ function walkToMic() {
 }
 
 function walkToHangout() {
+  // recording is done - switch back to the original pose before walking off
+  characterEl.classList.add('no-anim');
+  characterEl.classList.remove('pose-recording');
+  charPhotoImg.src = CHAR_PHOTO_IDLE_SRC;
+  void characterEl.offsetWidth;
+  characterEl.classList.remove('no-anim');
+
   characterEl.classList.add('facing-left');
   characterEl.classList.add('walking');
   characterEl.classList.remove('at-mic');
   return sleep(WALK_DURATION_MS).then(() => {
     characterEl.classList.remove('walking');
   });
+}
+
+// it's actually his turn to perform now (countdown just finished) - switch
+// to the recording pose instantly, no slide/resize animation
+function enterRecordingPose() {
+  characterEl.classList.add('no-anim');
+  characterEl.classList.add('pose-recording');
+  charPhotoImg.src = CHAR_PHOTO_RECORD_SRC;
+  void characterEl.offsetWidth;
+  characterEl.classList.remove('no-anim');
 }
 
 // ---------- gameplay steps ----------
@@ -220,8 +241,25 @@ async function runCountdown() {
   showScreen('screen-countdown');
   for (const n of [3, 2, 1]) {
     countdownNumberEl.textContent = String(n);
+    playCountdownBeep();
     await sleep(COUNTDOWN_STEP_MS);
   }
+}
+
+// short, clean beep for each 3-2-1 countdown number
+function playCountdownBeep() {
+  const ctx = state.audioContext;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = 880;
+  gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.14);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.15);
 }
 
 async function runRecording() {
