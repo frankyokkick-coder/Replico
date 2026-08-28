@@ -22,7 +22,6 @@ const SOUND_IDS = [
   'goat_1', 'goat_2',
   'duck_1',
   'turkey_1', 'turkey_2',
-  'monkey_1', 'monkey_2', 'monkey_3',
   'donkey_1',
   'frog_1', 'frog_2',
   'bird_1', 'bird_2',
