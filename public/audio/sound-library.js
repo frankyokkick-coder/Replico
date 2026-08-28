@@ -348,7 +348,6 @@ const ANIMAL_SOUND_ENTRIES = [
   sampleEntry('goose_1', 'Goose', 'goose_sb_1.mp3'),
   sampleEntry('lion_1', 'Lion Roar', 'lion_al_1.mp3'),
   sampleEntry('chimp_1', 'Chimp', 'chimp_al_1.mp3'),
-  sampleEntry('elephant_1', 'Elephant', 'elephant_al_1.mp3'),
   sampleEntry('bear_1', 'Bear Growl', 'bear_al_1.mp3'),
   sampleEntry('wolf_1', 'Wolf Howl', 'wolf_al_1.mp3'),
 ];

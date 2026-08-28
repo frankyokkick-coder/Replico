@@ -48,7 +48,6 @@ Item pages: `https://archive.org/details/<identifier>`
 | horse_al_3.mp3 | Red_Library_Animals_Horses_1 | R13-03-Horse Whinny Loop |
 | frog_al_1.mp3 | Red_Library_Animals_Misc | R01-44-Frogs Croaking |
 | frog_al_2.mp3 | Red_Library_Animals_Misc | R01-47-Frog Ribbets |
-| elephant_al_1.mp3 | Red_Library_Animals_Misc | R01-34-Elephant trumpet |
 | bear_al_1.mp3 | Red_Library_Animals_Misc | R19-13-Bear Roaring |
 
 ## Internet Archive - "SSE Library: ANIMALS" (USC Cinema / Sunset Editorial Collection)

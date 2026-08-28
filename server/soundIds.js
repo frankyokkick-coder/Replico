@@ -29,7 +29,6 @@ const SOUND_IDS = [
   'goose_1',
   'lion_1',
   'chimp_1',
-  'elephant_1',
   'bear_1',
   'wolf_1',
 ];

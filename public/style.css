@@ -120,6 +120,11 @@ body {
   bottom: 2.6%;
   left: -5.3%;
   width: 39.7%;
+  /* Fixed to the idle photo's own aspect ratio (1280x1119) at that width,
+     converted to a %-of-stage-height figure, since this box is absolutely
+     positioned. This height, like the width and bottom above, NEVER
+     changes for any pose - see .char-photo below. */
+  height: 61.7%;
   transition: left 1.1s ease-in-out;
   z-index: 2;
 }
@@ -127,21 +132,24 @@ body {
 .character.at-mic { left: 19.5%; }
 .character.facing-left .char-svg { transform: scaleX(-1); }
 
-/* Recording pose (mic3r.png): a different source photo with different
-   transparent-padding proportions, so it needs its own width/left/bottom
-   to land at the exact same visible size, at the same at-mic spot, as the
-   idle photo. */
-.character.at-mic.pose-recording {
-  width: 22.6%;
-  left: 28.5%;
-  bottom: 3.7%;
-}
+/* The character box (width/height/bottom) is fixed at all times, in every
+   pose - only `left` ever changes, and only to walk to/from the mic.
+   Swapping to the recording photo (mic3r.png), which has different native
+   proportions, changes only the image drawn inside this same-sized box
+   (scaled to fit without stretching, via object-fit below) - never the
+   box itself. */
 
-/* Used to snap left/width/bottom instantly (no slide) when swapping the
-   pose photo in place, so only the walk itself animates. */
+/* Used to snap `left` instantly (no slide) when swapping the pose photo
+   in place, so only the walk itself animates. */
 .character.no-anim { transition: none; }
 
-.char-photo { width: 100%; display: block; }
+.char-photo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center bottom;
+}
 
 /* Multiplayer: extra character clones sit in fixed waiting slots until
    it's their turn, at which point .at-mic (more specific) overrides them. */
